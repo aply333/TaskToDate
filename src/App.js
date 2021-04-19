@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import LoginPage from "./pages/login";
+import { BrowserView, MobileView } from "react-device-detect";
+import MobileLogin from "./pages/login/mobile";
+import MobileDashboard from "./pages/dashboard/mobile";
+import Dashboard from "./pages/dashboard";
+import MobileNewTask from "./pages/dashboard/mobile/newTask";
+import PrivateRoute from "./components/auth/privateRoute";
 
 function App() {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <BrowserView>
+        <Route exact path="/" component={LoginPage} />
+        <PrivateRoute path="/dashboard" component={Dashboard} />
+      </BrowserView>
+      <MobileView>
+        <Route exact path="/" component={MobileLogin} />
+        <PrivateRoute path="/dashboard" component={MobileDashboard} />
+        <PrivateRoute path="/newTask" component={MobileNewTask} />
+      </MobileView>
+    </Router>
   );
 }
 

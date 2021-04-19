@@ -1,0 +1,1 @@
+export const bordered = "#C4C4C4 1px solid";
